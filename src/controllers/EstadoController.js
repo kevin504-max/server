@@ -1,6 +1,5 @@
-const Estado = require('../models/estados'); // Ajuste o caminho conforme necessário
+const Estado = require('../database/models/Estado');
 
-// Criar um novo estado
 async function createEstado(req, res) {
     try {
         const { nome, sigla } = req.body;
@@ -11,7 +10,6 @@ async function createEstado(req, res) {
     }
 }
 
-// Atualizar um estado existente
 async function updateEstado(req, res) {
     try {
         const { id } = req.params;
@@ -32,7 +30,6 @@ async function updateEstado(req, res) {
     }
 }
 
-// Excluir um estado
 async function deleteEstado(req, res) {
     try {
         const { id } = req.params;
@@ -50,7 +47,6 @@ async function deleteEstado(req, res) {
     }
 }
 
-// Recuperar todos os estados
 async function getAllEstados(req, res) {
     try {
         const estados = await Estado.findAll();
@@ -60,7 +56,6 @@ async function getAllEstados(req, res) {
     }
 }
 
-// Recuperar um estado por ID
 async function getEstadoById(req, res) {
     try {
         const { id } = req.params;
@@ -76,7 +71,6 @@ async function getEstadoById(req, res) {
     }
 }
 
-// Recuperar um estado por sigla
 async function getEstadoBySigla(req, res) {
     try {
         const { sigla } = req.query;

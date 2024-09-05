@@ -1,6 +1,5 @@
-const LocalColeta = require('../models/locais_coleta'); // Ajuste o caminho conforme necessário
+const LocalColeta = require('../database/models/LocalColeta');
 
-// Criar um novo local de coleta
 async function createLocalColeta(req, res) {
     try {
         const { nome, rua, numero, complemento, cidade_id } = req.body;
@@ -11,7 +10,6 @@ async function createLocalColeta(req, res) {
     }
 }
 
-// Atualizar um local de coleta existente
 async function updateLocalColeta(req, res) {
     try {
         const { id } = req.params;
@@ -32,7 +30,6 @@ async function updateLocalColeta(req, res) {
     }
 }
 
-// Excluir um local de coleta
 async function deleteLocalColeta(req, res) {
     try {
         const { id } = req.params;
@@ -50,7 +47,6 @@ async function deleteLocalColeta(req, res) {
     }
 }
 
-// Recuperar todos os locais de coleta
 async function getAllLocaisColeta(req, res) {
     try {
         const locaisColeta = await LocalColeta.findAll();
@@ -60,7 +56,6 @@ async function getAllLocaisColeta(req, res) {
     }
 }
 
-// Recuperar um local de coleta por ID
 async function getLocalColetaById(req, res) {
     try {
         const { id } = req.params;
@@ -76,7 +71,6 @@ async function getLocalColetaById(req, res) {
     }
 }
 
-// Recuperar locais de coleta por nome
 async function getLocaisColetaByNome(req, res) {
     try {
         const { nome } = req.query;

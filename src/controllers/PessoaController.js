@@ -1,6 +1,5 @@
-const Pessoa = require('../models/pessoas'); // Ajuste o caminho conforme necessário
+const Pessoa = require('../database/models/Pessoa');
 
-// Criar uma nova pessoa
 async function createPessoa(req, res) {
     try {
         const { nome, rua, numero, complemento, rg, cidade_id, tipo_id } = req.body;
@@ -11,7 +10,6 @@ async function createPessoa(req, res) {
     }
 }
 
-// Atualizar uma pessoa existente
 async function updatePessoa(req, res) {
     try {
         const { id } = req.params;
@@ -32,7 +30,6 @@ async function updatePessoa(req, res) {
     }
 }
 
-// Excluir uma pessoa
 async function deletePessoa(req, res) {
     try {
         const { id } = req.params;
@@ -50,7 +47,6 @@ async function deletePessoa(req, res) {
     }
 }
 
-// Recuperar todas as pessoas
 async function getAllPessoas(req, res) {
     try {
         const pessoas = await Pessoa.findAll();
@@ -60,7 +56,6 @@ async function getAllPessoas(req, res) {
     }
 }
 
-// Recuperar uma pessoa por ID
 async function getPessoaById(req, res) {
     try {
         const { id } = req.params;
@@ -76,7 +71,6 @@ async function getPessoaById(req, res) {
     }
 }
 
-// Recuperar uma pessoa por RG
 async function getPessoaByRg(req, res) {
     try {
         const { rg } = req.query;

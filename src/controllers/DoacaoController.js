@@ -1,6 +1,5 @@
-const Doacao = require('../models/doacoes'); // Ajuste o caminho conforme necessário
+const Doacao = require('../database/models/Doacao');
 
-// Criar uma nova doação
 async function createDoacao(req, res) {
     try {
         const { pessoa_id, local_id, data } = req.body;
@@ -11,7 +10,6 @@ async function createDoacao(req, res) {
     }
 }
 
-// Atualizar uma doação existente
 async function updateDoacao(req, res) {
     try {
         const { id } = req.params;
@@ -32,7 +30,6 @@ async function updateDoacao(req, res) {
     }
 }
 
-// Excluir uma doação
 async function deleteDoacao(req, res) {
     try {
         const { id } = req.params;
@@ -50,7 +47,6 @@ async function deleteDoacao(req, res) {
     }
 }
 
-// Recuperar todas as doações
 async function getAllDoacoes(req, res) {
     try {
         const doacoes = await Doacao.findAll();
@@ -60,7 +56,6 @@ async function getAllDoacoes(req, res) {
     }
 }
 
-// Recuperar uma doação por ID
 async function getDoacaoById(req, res) {
     try {
         const { id } = req.params;
@@ -76,7 +71,6 @@ async function getDoacaoById(req, res) {
     }
 }
 
-// Recuperar doações por data
 async function getDoacoesByData(req, res) {
     try {
         const { data } = req.query;

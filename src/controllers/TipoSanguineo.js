@@ -1,6 +1,5 @@
-const TipoSanguineo = require('../models/tipos_sanguineos'); // Ajuste o caminho conforme necessário
+const TipoSanguineo = require('../database/models/TipoSanguineo');
 
-// Criar um novo tipo sanguíneo
 async function createTipoSanguineo(req, res) {
     try {
         const { tipo, estado_id } = req.body;
@@ -11,7 +10,6 @@ async function createTipoSanguineo(req, res) {
     }
 }
 
-// Atualizar um tipo sanguíneo existente
 async function updateTipoSanguineo(req, res) {
     try {
         const { id } = req.params;
@@ -32,7 +30,6 @@ async function updateTipoSanguineo(req, res) {
     }
 }
 
-// Excluir um tipo sanguíneo
 async function deleteTipoSanguineo(req, res) {
     try {
         const { id } = req.params;
@@ -50,7 +47,6 @@ async function deleteTipoSanguineo(req, res) {
     }
 }
 
-// Recuperar todos os tipos sanguíneos
 async function getAllTiposSanguineos(req, res) {
     try {
         const tiposSanguineos = await TipoSanguineo.findAll();
@@ -60,7 +56,6 @@ async function getAllTiposSanguineos(req, res) {
     }
 }
 
-// Recuperar um tipo sanguíneo por ID
 async function getTipoSanguineoById(req, res) {
     try {
         const { id } = req.params;
@@ -76,7 +71,6 @@ async function getTipoSanguineoById(req, res) {
     }
 }
 
-// Recuperar tipos sanguíneos por tipo
 async function getTiposSanguineosByTipo(req, res) {
     try {
         const { tipo } = req.query;

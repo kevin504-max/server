@@ -1,6 +1,5 @@
-const Cidade = require('../models/cidades'); // Ajuste o caminho conforme necessário
+const Cidade = require('../database/models/Cidade');
 
-// Criar uma nova cidade
 async function createCidade(req, res) {
     try {
         const { nome, estado_id } = req.body;
@@ -11,7 +10,6 @@ async function createCidade(req, res) {
     }
 }
 
-// Atualizar uma cidade existente
 async function updateCidade(req, res) {
     try {
         const { id } = req.params;
@@ -32,7 +30,6 @@ async function updateCidade(req, res) {
     }
 }
 
-// Excluir uma cidade
 async function deleteCidade(req, res) {
     try {
         const { id } = req.params;
@@ -50,7 +47,6 @@ async function deleteCidade(req, res) {
     }
 }
 
-// Recuperar todas as cidades
 async function getAllCidades(req, res) {
     try {
         const cidades = await Cidade.findAll();
@@ -60,7 +56,6 @@ async function getAllCidades(req, res) {
     }
 }
 
-// Recuperar uma cidade por ID
 async function getCidadeById(req, res) {
     try {
         const { id } = req.params;
@@ -76,7 +71,6 @@ async function getCidadeById(req, res) {
     }
 }
 
-// Recuperar cidades por nome
 async function getCidadeByNome(req, res) {
     try {
         const { nome } = req.query;
