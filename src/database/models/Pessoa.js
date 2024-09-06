@@ -59,7 +59,6 @@ class Pessoa extends Model {
     }
 
     static associate(models) {
-        console.log(">>> models: ", models)
         this.belongsTo(models.Cidade, {
             foreignKey: 'cidade_id',
             as: 'cidades'
