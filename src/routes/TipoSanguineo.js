@@ -7,7 +7,7 @@ const {
     getAllTiposSanguineos,
     getTipoSanguineoById,
     getTiposSanguineosByTipo
-} = require('../controllers/tipoSanguineoController');
+} = require('../controllers/TipoSanguineoController');
 
 router.post('/tipos-sanguineos', createTipoSanguineo);
 
