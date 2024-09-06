@@ -44,6 +44,17 @@ class LocalColeta extends Model {
             timestamps: true
         });
     }
+
+    static associate(models) {
+        this.belongsTo(models.Cidade, {
+            foreignKey: 'cidade_id',
+            as: 'cidade'
+        });
+        this.hasMany(models.Doacao, {
+            foreignKey: 'local_id',
+            as: 'doacoes'
+        });
+    }
 }
 
 module.exports = LocalColeta;

@@ -57,6 +57,22 @@ class Pessoa extends Model {
             timestamps: true
         });
     }
+
+    static associate(models) {
+        console.log(">>> models: ", models)
+        this.belongsTo(models.Cidade, {
+            foreignKey: 'cidade_id',
+            as: 'cidades'
+        });
+        this.belongsTo(models.TipoSanguineo, {
+            foreignKey: 'tipo_id',
+            as: 'tipoSanguineo'
+        });
+        this.hasMany(models.Doacao, {
+            foreignKey: 'pessoa_id',
+            as: 'doacoes'
+        });
+    }
 }
 
 module.exports = Pessoa;

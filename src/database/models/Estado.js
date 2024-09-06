@@ -30,6 +30,13 @@ class Estado extends Model {
             timestamps: true
         });
     }
+
+    static associate(models) {
+        this.hasMany(models.Cidade, {
+            foreignKey: 'estado_id',
+            as: 'cidades'
+        });
+    }
 }
 
 module.exports = Estado;

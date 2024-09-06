@@ -32,7 +32,24 @@ class Cidade extends Model {
             tableName: 'cidades',
             timestamps: true
         });
+
     }
+
+    static associate (models) {
+        this.belongsTo(models.Estado, {
+            foreignKey: 'estado_id',
+            as: 'estado'
+        });
+        this.hasMany(models.Pessoa, {
+            foreignKey: 'cidade_id',
+            as: 'pessoas'
+        });
+        this.hasMany(models.LocalColeta, {
+            foreignKey: 'cidade_id',
+            as: 'locais_coleta'
+        });
+    }
+
 }
 
 module.exports = Cidade;

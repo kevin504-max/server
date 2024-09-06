@@ -41,6 +41,17 @@ class Doacao extends Model {
             timestamps: true
         });
     }
+
+    static associate(models) {
+        this.belongsTo(models.Pessoa, {
+            foreignKey: 'pessoa_id',
+            as: 'pessoa'
+        });
+        this.belongsTo(models.LocalColeta, {
+            foreignKey: 'local_id',
+            as: 'localColeta'
+        });
+    }
 }
 
 module.exports = Doacao;

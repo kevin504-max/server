@@ -7,13 +7,9 @@ class TipoSanguineo extends Model {
                 type: DataTypes.STRING, 
                 allowNull: false 
             },
-            estado_id: { 
-                type: DataTypes.INTEGER, 
-                allowNull: false,
-                references: {
-                    model: 'estados',
-                    key: 'id'
-                }
+            fator: {
+                type: DataTypes.STRING,
+                allowNull: false
             },
             created_at: { 
                 type: DataTypes.DATE, 
@@ -31,6 +27,13 @@ class TipoSanguineo extends Model {
             modelName: 'TipoSanguineo',
             tableName: 'tipos_sanguineos',
             timestamps: true
+        });
+    }
+
+    static associate(models) {
+        this.hasMany(models.Pessoa, {
+            foreignKey: 'tipo_sanguineo_id',
+            as: 'pessoas'
         });
     }
 }
