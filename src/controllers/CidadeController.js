@@ -49,7 +49,6 @@ async function deleteCidade(req, res) {
 
 async function getAllCidades(req, res) {
     try {
-        console.log('Entrou aqui')
         const cidades = await Cidade.findAll();
         console.log(cidades);
         res.status(200).json(cidades);
