@@ -35,7 +35,7 @@ class Pessoa extends Model {
                 type: DataTypes.INTEGER, 
                 allowNull: false,
                 references: {
-                    model: 'tipos',
+                    model: 'tipos_sanguineos',
                     key: 'id'
                 }
             },
