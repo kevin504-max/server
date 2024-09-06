@@ -9,16 +9,16 @@ const {
     getLocaisColetaByNome
 } = require('../controllers/LocalColetaController');
 
-router.post('/locais_coleta', createLocalColeta);
+router.post('/local_coleta', createLocalColeta);
 
-router.put('/locais_coleta/:id', updateLocalColeta);
+router.put('/local_coleta/:id', updateLocalColeta);
 
-router.delete('/locais_coleta/:id', deleteLocalColeta);
+router.delete('/local_coleta/:id', deleteLocalColeta);
 
-router.get('/locais_coleta', getAllLocaisColeta);
+router.get('/local_coleta', getAllLocaisColeta);
 
-router.get('/locais_coleta/:id', getLocalColetaById);
+router.get('/local_coleta/:id', getLocalColetaById);
 
-router.get('/locais_coleta/nome', getLocaisColetaByNome);
+router.get('/local_coleta/nome', getLocaisColetaByNome);
 
 module.exports = router;

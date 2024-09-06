@@ -15,8 +15,11 @@ routeFiles.forEach(file => {
     if (file === 'index.js') return;
     const route = require(path.join(routesDirectory, file));
     let prefix = file.split('Routes.js')[0]
+    prefix = prefix.replace('.js', '');
     prefix = camelToSnake(prefix);
     prefix.toLowerCase();
+
+    console.log(`Adding route /${prefix}`);
 
     router.use(`/${prefix}`, route);
 });

@@ -9,16 +9,16 @@ const {
     getCidadeByNome
 } = require('../controllers/CidadeController');
 
-router.post('/cidades', createCidade);
+router.post('/cidade', createCidade);
 
-router.put('/cidades/:id', updateCidade);
+router.put('/cidade/:id', updateCidade);
 
-router.delete('/cidades/:id', deleteCidade);
+router.delete('/cidade/:id', deleteCidade);
 
-router.get('/cidades', getAllCidades);
+router.get('/cidade', getAllCidades);
 
-router.get('/cidades/:id', getCidadeById);
+router.get('/cidade/:id', getCidadeById);
 
-router.get('/cidades/nome', getCidadeByNome);
+router.get('/cidade/nome', getCidadeByNome);
 
 module.exports = router;

@@ -9,16 +9,16 @@ const {
     getEstadoBySigla
 } = require('../controllers/EstadoController');
 
-router.post('/estados', createEstado);
+router.post('/estado', createEstado);
 
-router.put('/estados/:id', updateEstado);
+router.put('/estado/:id', updateEstado);
 
-router.delete('/estados/:id', deleteEstado);
+router.delete('/estado/:id', deleteEstado);
 
-router.get('/estados', getAllEstados);
+router.get('/estado', getAllEstados);
 
-router.get('/estados/:id', getEstadoById);
+router.get('/estado/:id', getEstadoById);
 
-router.get('/estados/sigla', getEstadoBySigla);
+router.get('/estado/sigla', getEstadoBySigla);
 
 module.exports = router;

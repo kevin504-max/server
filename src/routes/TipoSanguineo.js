@@ -9,16 +9,16 @@ const {
     getTiposSanguineosByTipo
 } = require('../controllers/TipoSanguineoController');
 
-router.post('/tipos-sanguineos', createTipoSanguineo);
+router.post('/tipos_sanguineo', createTipoSanguineo);
 
-router.put('/tipos-sanguineos/:id', updateTipoSanguineo);
+router.put('/tipos_sanguineo/:id', updateTipoSanguineo);
 
-router.delete('/tipos-sanguineos/:id', deleteTipoSanguineo);
+router.delete('/tipos_sanguineo/:id', deleteTipoSanguineo);
 
-router.get('/tipos-sanguineos', getAllTiposSanguineos);
+router.get('/tipos_sanguineo', getAllTiposSanguineos);
 
-router.get('/tipos-sanguineos/:id', getTipoSanguineoById);
+router.get('/tipos_sanguineo/:id', getTipoSanguineoById);
 
-router.get('/tipos-sanguineos/tipo', getTiposSanguineosByTipo);
+router.get('/tipos_sanguineo/tipo', getTiposSanguineosByTipo);
 
 module.exports = router;
