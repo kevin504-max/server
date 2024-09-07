@@ -25,10 +25,10 @@ As operações básicas disponíveis para cada entidade são:
 
 ### 🛠️ Tecnologias Utilizadas
 As tecnologias escolhidas para o desenvolvimento da API incluem:
-- **Node.js**: Plataforma para execução de JavaScript no backend.
-- **TypeScript**: Linguagem que adiciona tipagem ao JavaScript, ajudando a evitar erros de tipo em tempo de desenvolvimento.
-- **Sequelize**: ORM para gerenciar o banco de dados e definir os models e relações entre as entidades.
-- **MySQL**: Banco de dados relacional utilizado para armazenar as informações do sistema.
+- **[Node.js](https://nodejs.org/en)**: Plataforma para execução de JavaScript no backend.
+- **[Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)**: Linguagem de programação Web.
+- **[Sequelize](https://sequelize.org/)**: ORM para gerenciar o banco de dados e definir os models e relações entre as entidades.
+- **[MySQL](https://www.mysql.com/)**: Banco de dados relacional utilizado para armazenar as informações do sistema.
 
 ### 📂 Estrutura do Projeto
 A estrutura do projeto segue a arquitetura de camadas, separando as responsabilidades em **routers**, **controllers** e **models**, de forma a garantir um código organizado e fácil de manter.
