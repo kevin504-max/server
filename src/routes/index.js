@@ -17,7 +17,6 @@ routeFiles.forEach(file => {
     let prefix = file.split('Routes.js')[0]
     prefix = prefix.replace('.js', '');
     prefix = camelToSnake(prefix);
-    prefix.toLowerCase();
 
     router.use(`/${prefix}`, route);
 });
