@@ -9,16 +9,16 @@ const {
     getPessoaByRg
 } = require('../controllers/PessoaController');
 
-router.post('/pessoa', createPessoa);
+router.post('/', createPessoa);
 
-router.put('/pessoa/:id', updatePessoa);
+router.put('/:id', updatePessoa);
 
-router.delete('/pessoa/:id', deletePessoa);
+router.delete('/:id', deletePessoa);
 
-router.get('/pessoa', getAllPessoas);
+router.get('/', getAllPessoas);
 
-router.get('/pessoa/:id', getPessoaById);
+router.get('/:id', getPessoaById);
 
-router.get('/pessoa/rg', getPessoaByRg);
+router.get('/rg', getPessoaByRg);
 
 module.exports = router;

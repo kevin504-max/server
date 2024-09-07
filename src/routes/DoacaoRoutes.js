@@ -9,16 +9,16 @@ const {
     getDoacoesByData
 } = require('../controllers/DoacaoController');
 
-router.post('/doacao', createDoacao);
+router.post('/', createDoacao);
 
-router.put('/doacao/:id', updateDoacao);
+router.put('/:id', updateDoacao);
 
-router.delete('/doacao/:id', deleteDoacao);
+router.delete('/:id', deleteDoacao);
 
-router.get('/doacao', getAllDoacoes);
+router.get('/', getAllDoacoes);
 
-router.get('/doacao/:id', getDoacaoById);
+router.get('/:id', getDoacaoById);
 
-router.get('/doacao/data', getDoacoesByData);
+router.get('/data', getDoacoesByData);
 
 module.exports = router;
