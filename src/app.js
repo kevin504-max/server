@@ -1,6 +1,6 @@
 const ApiServer = require('./server/server');
 const config = require('./config/config');
-const Sequerlize = require('./database');
+const Sequelize = require('./database');
 
 const startApplication = async () => {
     try {
