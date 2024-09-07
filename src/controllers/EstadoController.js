@@ -1,126 +1,131 @@
-const Doacao = require('../database/models/Doacao');
+const Estado = require('../database/models/Estado');
 
-async function createDoacao(req, res) {
+async function createEstado(req, res) {
     try {
-        const { pessoa_id, local_id, data } = req.body;
+        const { nome, sigla } = req.body;
 
-        if (!pessoa_id || !local_id || !data) {
-            return res.status(400).json({ message: 'pessoa_id, local_id e data são obrigatórios' });
+        // Verificação básica
+        if (!nome || !sigla) {
+            return res.status(400).json({ message: 'Nome e sigla são obrigatórios' });
         }
 
-        const novaDoacao = await Doacao.create({ pessoa_id, local_id, data });
-        res.status(201).json(novaDoacao);
+        const novoEstado = await Estado.create({ nome, sigla });
+        res.status(201).json(novoEstado);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao criar doação: ' + error.message });
+        res.status(500).json({ error: 'Erro ao criar estado: ' + error.message });
     }
 }
 
-async function updateDoacao(req, res) {
+async function updateEstado(req, res) {
     try {
         const { id } = req.params;
-        const { pessoa_id, local_id, data } = req.body;
+        const { nome, sigla } = req.body;
 
+        // Verificação básica
         if (!id) {
-            return res.status(400).json({ message: 'ID da doação é obrigatório' });
+            return res.status(400).json({ message: 'ID do estado é obrigatório' });
         }
-        if (!pessoa_id || !local_id || !data) {
-            return res.status(400).json({ message: 'pessoa_id, local_id e data são obrigatórios' });
+        if (!nome || !sigla) {
+            return res.status(400).json({ message: 'Nome e sigla são obrigatórios' });
         }
 
-        const [updated] = await Doacao.update({ pessoa_id, local_id, data }, {
+        const [updated] = await Estado.update({ nome, sigla }, {
             where: { id },
             returning: true
         });
 
         if (updated) {
-            const doacaoAtualizada = await Doacao.findByPk(id);
-            res.status(200).json(doacaoAtualizada);
+            const estadoAtualizado = await Estado.findByPk(id);
+            res.status(200).json(estadoAtualizado);
         } else {
-            res.status(404).json({ message: 'Doação não encontrada' });
+            res.status(404).json({ message: 'Estado não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao atualizar doação: ' + error.message });
+        res.status(500).json({ error: 'Erro ao atualizar estado: ' + error.message });
     }
 }
 
-async function deleteDoacao(req, res) {
+async function deleteEstado(req, res) {
     try {
         const { id } = req.params;
 
+        // Verificação básica
         if (!id) {
-            return res.status(400).json({ message: 'ID da doação é obrigatório' });
+            return res.status(400).json({ message: 'ID do estado é obrigatório' });
         }
 
-        const deleted = await Doacao.destroy({
+        const deleted = await Estado.destroy({
             where: { id }
         });
 
         if (deleted) {
             res.status(204).json();
         } else {
-            res.status(404).json({ message: 'Doação não encontrada' });
+            res.status(404).json({ message: 'Estado não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao deletar doação: ' + error.message });
+        res.status(500).json({ error: 'Erro ao deletar estado: ' + error.message });
     }
 }
 
-async function getAllDoacoes(req, res) {
+async function getAllEstados(req, res) {
     try {
-        const doacoes = await Doacao.findAll();
-        res.status(200).json(doacoes);
+        const estados = await Estado.findAll();
+        res.status(200).json(estados);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar doações: ' + error.message });
+        res.status(500).json({ error: 'Erro ao buscar estados: ' + error.message });
     }
 }
 
-async function getDoacaoById(req, res) {
+async function getEstadoById(req, res) {
     try {
         const { id } = req.params;
 
+        // Verificação básica
         if (!id) {
-            return res.status(400).json({ message: 'ID da doação é obrigatório' });
+            return res.status(400).json({ message: 'ID do estado é obrigatório' });
         }
 
-        const doacao = await Doacao.findByPk(id);
+        const estado = await Estado.findByPk(id);
 
-        if (doacao) {
-            res.status(200).json(doacao);
+        if (estado) {
+            res.status(200).json(estado);
         } else {
-            res.status(404).json({ message: 'Doação não encontrada' });
+            res.status(404).json({ message: 'Estado não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar doação: ' + error.message });
+        res.status(500).json({ error: 'Erro ao buscar estado: ' + error.message });
     }
 }
 
-async function getDoacoesByData(req, res) {
+async function getEstadoBySigla(req, res) {
     try {
-        const { data } = req.query;
+        const { sigla } = req.query;
 
-        if (!data) {
-            return res.status(400).json({ message: 'Data é obrigatória para a busca' });
+        // Verificação básica
+        if (!sigla) {
+            return res.status(400).json({ message: 'Sigla é obrigatória para a busca' });
         }
 
-        const doacoes = await Doacao.findAll({
-            where: { data }
+        const estado = await Estado.findOne({
+            where: { sigla }
         });
 
-        if (doacoes.length > 0) {
-            res.status(200).json(doacoes);
+        if (estado) {
+            res.status(200).json(estado);
         } else {
-            res.status(404).json({ message: 'Nenhuma doação encontrada para essa data' });
+            res.status(404).json({ message: 'Estado não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar doações por data: ' + error.message });
+        res.status(500).json({ error: 'Erro ao buscar estado por sigla: ' + error.message });
     }
 }
 
 module.exports = {
-    createDoacao,
-    updateDoacao,
-    deleteDoacao,
-    getAllDoacoes,
-    getDoacaoById,
-    getDoacoesByData
+    createEstado,
+    updateEstado,
+    deleteEstado,
+    getAllEstados,
+    getEstadoById,
+    getEstadoBySigla
 };
