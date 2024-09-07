@@ -39,3 +39,30 @@ A estrutura do projeto segue a arquitetura de camadas, separando as responsabili
 - **database/**: Contém a definição das tabelas e entidades do banco de dados, utilizando o Sequelize para gerenciar a conexeão e sincronização com o banco.
 - **server/**: Arquivo principal da aplicação, responsável por inicializar o servidor e definir as rotas.
 - **app.js**: Arquivo de inicialização da aplicação, importando o servidor e iniciando a aplicação.
+
+### 📦 Banco de Dados
+O banco de dados utilizado para a aplicação é o MySQL, que armazena as informações das entidades do sistema. O Sequelize é utilizado para gerenciar a conexão com o banco e definir os modelos das entidades, facilitando a interação com o banco de dados.
+
+Para configurar o banco de dados, basta informar as credenciais do seu banco de dados em um arquivo `.env` na raiz do projeto, seguindo o exemplo presente no arquivo `.env.example`.
+
+
+### 🚀 Executando a Aplicação Localmente 
+Para executar a aplicação localmente, siga os passos abaixo:
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/kevin504-max/server.git
+```
+
+2. Instale as dependências:
+```bash
+npm install
+```
+
+3. Inicie o servidor:
+```bash
+npm run start
+```
+
+4. Acesse a API em `http://localhost:3300`, ou porta definida no arquivo `config/config.json`.
+    - Obs.: Por padrão, a aplicação utiliza a porta 3300. E prefixo `/api/` para as rotas.
