@@ -3,10 +3,15 @@ const TipoSanguineo = require('../database/models/TipoSanguineo');
 async function createTipoSanguineo(req, res) {
     try {
         const { tipo, estado_id } = req.body;
+
+        if (!tipo || !estado_id) {
+            return res.status(400).json({ message: 'Tipo sanguíneo e estado_id são obrigatórios' });
+        }
+
         const novoTipoSanguineo = await TipoSanguineo.create({ tipo, estado_id });
         res.status(201).json(novoTipoSanguineo);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Erro ao criar tipo sanguíneo: ' + error.message });
     }
 }
 
@@ -14,6 +19,14 @@ async function updateTipoSanguineo(req, res) {
     try {
         const { id } = req.params;
         const { tipo, estado_id } = req.body;
+
+        if (!id) {
+            return res.status(400).json({ message: 'ID do tipo sanguíneo é obrigatório' });
+        }
+        if (!tipo || !estado_id) {
+            return res.status(400).json({ message: 'Tipo sanguíneo e estado_id são obrigatórios' });
+        }
+
         const [updated] = await TipoSanguineo.update({ tipo, estado_id }, {
             where: { id },
             returning: true
@@ -26,13 +39,18 @@ async function updateTipoSanguineo(req, res) {
             res.status(404).json({ message: 'Tipo sanguíneo não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Erro ao atualizar tipo sanguíneo: ' + error.message });
     }
 }
 
 async function deleteTipoSanguineo(req, res) {
     try {
         const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'ID do tipo sanguíneo é obrigatório' });
+        }
+
         const deleted = await TipoSanguineo.destroy({
             where: { id }
         });
@@ -43,7 +61,7 @@ async function deleteTipoSanguineo(req, res) {
             res.status(404).json({ message: 'Tipo sanguíneo não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Erro ao deletar tipo sanguíneo: ' + error.message });
     }
 }
 
@@ -52,13 +70,18 @@ async function getAllTiposSanguineos(req, res) {
         const tiposSanguineos = await TipoSanguineo.findAll();
         res.status(200).json(tiposSanguineos);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Erro ao buscar tipos sanguíneos: ' + error.message });
     }
 }
 
 async function getTipoSanguineoById(req, res) {
     try {
         const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'ID do tipo sanguíneo é obrigatório' });
+        }
+
         const tipoSanguineo = await TipoSanguineo.findByPk(id);
 
         if (tipoSanguineo) {
@@ -67,17 +90,20 @@ async function getTipoSanguineoById(req, res) {
             res.status(404).json({ message: 'Tipo sanguíneo não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Erro ao buscar tipo sanguíneo: ' + error.message });
     }
 }
 
 async function getTiposSanguineosByTipo(req, res) {
     try {
         const { tipo } = req.query;
+
+        if (!tipo) {
+            return res.status(400).json({ message: 'Tipo sanguíneo é obrigatório para a busca' });
+        }
+
         const tiposSanguineos = await TipoSanguineo.findAll({
-            where: {
-                tipo: tipo
-            }
+            where: { tipo }
         });
 
         if (tiposSanguineos.length > 0) {
@@ -86,7 +112,7 @@ async function getTiposSanguineosByTipo(req, res) {
             res.status(404).json({ message: 'Tipos sanguíneos não encontrados' });
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Erro ao buscar tipos sanguíneos: ' + error.message });
     }
 }
 
