@@ -19,8 +19,6 @@ routeFiles.forEach(file => {
     prefix = camelToSnake(prefix);
     prefix.toLowerCase();
 
-    console.log(`Adding route /${prefix}`);
-
     router.use(`/${prefix}`, route);
 });
 
