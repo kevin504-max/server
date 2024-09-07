@@ -7,6 +7,11 @@ async function createTipoSanguineo(req, res) {
         if (!tipo || !estado_id) {
             return res.status(400).json({ message: 'Tipo sanguíneo e estado_id são obrigatórios' });
         }
+        
+        const estado = await Estado.findByPk(estado_id);
+        if (!estado) {
+            return res.status(404).json({ message: 'Estado não encontrado' });
+        }
 
         const novoTipoSanguineo = await TipoSanguineo.create({ tipo, estado_id });
         res.status(201).json(novoTipoSanguineo);

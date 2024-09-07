@@ -8,6 +8,11 @@ async function createLocalColeta(req, res) {
             return res.status(400).json({ message: 'Nome, rua, número e cidade_id são obrigatórios' });
         }
 
+        const cidade = await Cidade.findByPk(cidade_id);
+        if (!cidade) {
+            return res.status(404).json({ message: 'Cidade não encontrada' });
+        }
+
         const novoLocalColeta = await LocalColeta.create({ nome, rua, numero, complemento, cidade_id });
         res.status(201).json(novoLocalColeta);
     } catch (error) {

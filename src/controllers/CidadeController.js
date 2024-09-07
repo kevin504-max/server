@@ -1,4 +1,5 @@
 const Cidade = require('../database/models/Cidade');
+const Estado = require('../database/models/Estado');
 
 async function createCidade(req, res) {
     try {
@@ -6,6 +7,11 @@ async function createCidade(req, res) {
 
         if (!nome || !estado_id) {
             return res.status(400).json({ message: 'Nome e estado_id são obrigatórios' });
+        }
+
+        const estado = await Estado.findByPk(estado_id);
+        if (!estado) {
+            return res.status(404).json({ message: 'Estado não encontrado' });
         }
 
         const novaCidade = await Cidade.create({ nome, estado_id });

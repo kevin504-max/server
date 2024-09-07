@@ -8,6 +8,16 @@ async function createDoacao(req, res) {
             return res.status(400).json({ message: 'pessoa_id, local_id e data são obrigatórios' });
         }
 
+        const pessoa = await Pessoa.findByPk(pessoa_id);
+        if (!pessoa) {
+            return res.status(404).json({ message: 'Pessoa não encontrada' });
+        }
+
+        const local = await LocalColeta.findByPk(local_id);
+        if (!local) {
+            return res.status(404).json({ message: 'Local de coleta não encontrado' });
+        }
+
         const novaDoacao = await Doacao.create({ pessoa_id, local_id, data });
         res.status(201).json(novaDoacao);
     } catch (error) {

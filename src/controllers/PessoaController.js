@@ -8,6 +8,11 @@ async function createPessoa(req, res) {
             return res.status(400).json({ message: 'Nome, RG, cidade_id e tipo_id são obrigatórios' });
         }
 
+        const tipoSanguineo = await TipoSanguineo.findByPk(tipo_id);
+        if (!tipoSanguineo) {
+            return res.status(404).json({ message: 'Tipo sanguíneo não encontrado' });
+        }
+
         const novaPessoa = await Pessoa.create({ nome, rua, numero, complemento, rg, cidade_id, tipo_id });
         res.status(201).json(novaPessoa);
     } catch (error) {

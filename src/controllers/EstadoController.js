@@ -4,7 +4,6 @@ async function createEstado(req, res) {
     try {
         const { nome, sigla } = req.body;
 
-        // Verificação básica
         if (!nome || !sigla) {
             return res.status(400).json({ message: 'Nome e sigla são obrigatórios' });
         }
@@ -21,7 +20,6 @@ async function updateEstado(req, res) {
         const { id } = req.params;
         const { nome, sigla } = req.body;
 
-        // Verificação básica
         if (!id) {
             return res.status(400).json({ message: 'ID do estado é obrigatório' });
         }
@@ -49,7 +47,6 @@ async function deleteEstado(req, res) {
     try {
         const { id } = req.params;
 
-        // Verificação básica
         if (!id) {
             return res.status(400).json({ message: 'ID do estado é obrigatório' });
         }
@@ -81,7 +78,6 @@ async function getEstadoById(req, res) {
     try {
         const { id } = req.params;
 
-        // Verificação básica
         if (!id) {
             return res.status(400).json({ message: 'ID do estado é obrigatório' });
         }
@@ -102,7 +98,6 @@ async function getEstadoBySigla(req, res) {
     try {
         const { sigla } = req.query;
 
-        // Verificação básica
         if (!sigla) {
             return res.status(400).json({ message: 'Sigla é obrigatória para a busca' });
         }
