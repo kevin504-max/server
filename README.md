@@ -10,12 +10,14 @@ O diagrama completo do banco de dados pode ser acessado [aqui](https://github.co
 
 ### 🔧 Atividade Prática 1
 Nesta atividade, foi desenvolvida uma API RESTful para as seguintes entidades:
-- **Tipos Sanguíneos**
-- **Pessoas**
-- **Locais de Coleta**
+- **Cidades**
 - **Doações**
+- **Estados**
+- **Locais de Coleta**
+- **Pessoas**
+- **Tipos Sanguíneos**
 
-As operações disponíveis para cada entidade são:
+As operações básicas disponíveis para cada entidade são:
 - **Inserir (create)**: Adicionar novos registros.
 - **Atualizar (update)**: Modificar registros existentes.
 - **Excluir (delete)**: Remover registros.
