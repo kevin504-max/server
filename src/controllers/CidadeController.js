@@ -33,17 +33,13 @@ async function updateCidade(req, res) {
             return res.status(400).json({ message: 'Nome e estado_id são obrigatórios' });
         }
 
-        const [updated] = await Cidade.update({ nome, estado_id }, {
+        await Cidade.update({ nome, estado_id }, {
             where: { id },
             returning: true
         });
 
-        if (updated) {
-            const cidadeAtualizada = await Cidade.findByPk(id);
-            res.status(200).json(cidadeAtualizada);
-        } else {
-            res.status(404).json({ message: 'Cidade não encontrada' });
-        }
+        const cidadeAtualizada = await Cidade.findByPk(id);
+        res.status(200).json(cidadeAtualizada);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar cidade: ' + error.message });
     }
@@ -73,7 +69,10 @@ async function deleteCidade(req, res) {
 
 async function getAllCidades(req, res) {
     try {
-        const cidades = await Cidade.findAll();
+        const cidades = await Cidade.findAll({
+            include: { model: Estado, as: 'estado' }
+        });
+
         res.status(200).json(cidades);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar cidades: ' + error.message });

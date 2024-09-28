@@ -27,17 +27,13 @@ async function updateEstado(req, res) {
             return res.status(400).json({ message: 'Nome e sigla são obrigatórios' });
         }
 
-        const [updated] = await Estado.update({ nome, sigla }, {
+        await Estado.update({ nome, sigla }, {
             where: { id },
             returning: true
         });
 
-        if (updated) {
-            const estadoAtualizado = await Estado.findByPk(id);
-            res.status(200).json(estadoAtualizado);
-        } else {
-            res.status(404).json({ message: 'Estado não encontrado' });
-        }
+        const estadoAtualizado = await Estado.findByPk(id);
+        res.status(200).json(estadoAtualizado);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar estado: ' + error.message });
     }
@@ -51,7 +47,7 @@ async function deleteEstado(req, res) {
             return res.status(400).json({ message: 'ID do estado é obrigatório' });
         }
 
-        const deleted = await Estado.destroy({
+        await Estado.destroy({
             where: { id }
         });
 

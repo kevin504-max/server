@@ -1,4 +1,6 @@
+const Cidade = require('../database/models/Cidade');
 const Pessoa = require('../database/models/Pessoa');
+const TipoSanguineo = require('../database/models/TipoSanguineo');
 
 async function createPessoa(req, res) {
     try {
@@ -32,17 +34,13 @@ async function updatePessoa(req, res) {
             return res.status(400).json({ message: 'Nome, RG, cidade_id e tipo_id são obrigatórios' });
         }
 
-        const [updated] = await Pessoa.update({ nome, rua, numero, complemento, rg, cidade_id, tipo_id }, {
+        await Pessoa.update({ nome, rua, numero, complemento, rg, cidade_id, tipo_id }, {
             where: { id },
             returning: true
         });
 
-        if (updated) {
-            const pessoaAtualizada = await Pessoa.findByPk(id);
-            res.status(200).json(pessoaAtualizada);
-        } else {
-            res.status(404).json({ message: 'Pessoa não encontrada' });
-        }
+        const pessoaAtualizada = await Pessoa.findByPk(id);
+        res.status(200).json(pessoaAtualizada);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar pessoa: ' + error.message });
     }
@@ -72,7 +70,19 @@ async function deletePessoa(req, res) {
 
 async function getAllPessoas(req, res) {
     try {
-        const pessoas = await Pessoa.findAll();
+        const pessoas = await Pessoa.findAll({
+            include: [
+                {
+                    model: Cidade,
+                    as: 'cidades'
+                },
+                {
+                    model: TipoSanguineo,
+                    as: 'tipoSanguineo'
+                }
+            ]
+        });
+        console.log(pessoas);
         res.status(200).json(pessoas);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar pessoas: ' + error.message });

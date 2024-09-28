@@ -2,18 +2,16 @@ const TipoSanguineo = require('../database/models/TipoSanguineo');
 
 async function createTipoSanguineo(req, res) {
     try {
-        const { tipo, estado_id } = req.body;
+        const { tipo, fator } = req.body;
 
-        if (!tipo || !estado_id) {
-            return res.status(400).json({ message: 'Tipo sanguíneo e estado_id são obrigatórios' });
+        if (!tipo || !fator) {
+            return res.status(400).json({ message: 'Tipo sanguíneo e fator são obrigatórios' });
         }
         
-        const estado = await Estado.findByPk(estado_id);
-        if (!estado) {
-            return res.status(404).json({ message: 'Estado não encontrado' });
-        }
+        const tipoExistente = await TipoSanguineo.findByPk(tipo);
+        if (tipoExistente) return res.status(404).json({ message: 'Tipo Sanguíneo já cadastrado.' });
 
-        const novoTipoSanguineo = await TipoSanguineo.create({ tipo, estado_id });
+        const novoTipoSanguineo = await TipoSanguineo.create({ tipo, fator });
         res.status(201).json(novoTipoSanguineo);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao criar tipo sanguíneo: ' + error.message });
@@ -23,26 +21,20 @@ async function createTipoSanguineo(req, res) {
 async function updateTipoSanguineo(req, res) {
     try {
         const { id } = req.params;
-        const { tipo, estado_id } = req.body;
+        const { tipo, fator } = req.body;
 
-        if (!id) {
-            return res.status(400).json({ message: 'ID do tipo sanguíneo é obrigatório' });
-        }
-        if (!tipo || !estado_id) {
-            return res.status(400).json({ message: 'Tipo sanguíneo e estado_id são obrigatórios' });
+        if (!tipo || !fator) {
+            return res.status(400).json({ message: 'Tipo sanguíneo e fator são obrigatórios' });
         }
 
-        const [updated] = await TipoSanguineo.update({ tipo, estado_id }, {
+        await TipoSanguineo.update({ tipo, fator }, {
             where: { id },
             returning: true
         });
 
-        if (updated) {
-            const tipoSanguineoAtualizado = await TipoSanguineo.findByPk(id);
-            res.status(200).json(tipoSanguineoAtualizado);
-        } else {
-            res.status(404).json({ message: 'Tipo sanguíneo não encontrado' });
-        }
+        const tipoSanguineoAtualizado = await TipoSanguineo.findByPk(id);
+        res.status(200).json(tipoSanguineoAtualizado);
+       
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar tipo sanguíneo: ' + error.message });
     }
