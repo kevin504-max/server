@@ -68,3 +68,12 @@ npm run start
 
 4. Acesse a API em `http://localhost:3300`, ou porta definida no arquivo `config/config.json`.
     - Obs.: Por padrão, a aplicação utiliza a porta 3300. E prefixo `/api/` para as rotas.
+
+5. Rode o comando para popular o banco de dados:
+```bash
+cd src/database
+npx sequelize-cli db:seed:all
+```
+
+Obs.: Para que os arquivos seed sejam executados, é necessário que o banco de dados esteja criado e configurado corretamente 
+no seu arquivo `.env` e `database/config/config.json`.
