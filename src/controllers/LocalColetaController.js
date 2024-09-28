@@ -1,3 +1,4 @@
+const Cidade = require('../database/models/Cidade');
 const LocalColeta = require('../database/models/LocalColeta');
 
 async function createLocalColeta(req, res) {
@@ -32,17 +33,13 @@ async function updateLocalColeta(req, res) {
             return res.status(400).json({ message: 'Nome, rua, número e cidade_id são obrigatórios' });
         }
 
-        const [updated] = await LocalColeta.update({ nome, rua, numero, complemento, cidade_id }, {
+        LocalColeta.update({ nome, rua, numero, complemento, cidade_id }, {
             where: { id },
             returning: true
         });
 
-        if (updated) {
-            const localColetaAtualizado = await LocalColeta.findByPk(id);
-            res.status(200).json(localColetaAtualizado);
-        } else {
-            res.status(404).json({ message: 'Local de coleta não encontrado' });
-        }
+        const localColetaAtualizado = await LocalColeta.findByPk(id);
+        res.status(200).json(localColetaAtualizado);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar local de coleta: ' + error.message });
     }
@@ -72,7 +69,14 @@ async function deleteLocalColeta(req, res) {
 
 async function getAllLocaisColeta(req, res) {
     try {
-        const locaisColeta = await LocalColeta.findAll();
+        const locaisColeta = await LocalColeta.findAll({
+            include: [
+                {
+                    model: Cidade,
+                    as: 'cidade'
+                }
+            ]
+        });
         res.status(200).json(locaisColeta);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar locais de coleta: ' + error.message });

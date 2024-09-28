@@ -1,4 +1,6 @@
 const Doacao = require('../database/models/Doacao');
+const LocalColeta = require('../database/models/LocalColeta');
+const Pessoa = require('../database/models/Pessoa');
 
 async function createDoacao(req, res) {
     try {
@@ -37,17 +39,13 @@ async function updateDoacao(req, res) {
             return res.status(400).json({ message: 'pessoa_id, local_id e data são obrigatórios' });
         }
 
-        const [updated] = await Doacao.update({ pessoa_id, local_id, data }, {
+        await Doacao.update({ pessoa_id, local_id, data }, {
             where: { id },
             returning: true
         });
 
-        if (updated) {
-            const doacaoAtualizada = await Doacao.findByPk(id);
-            res.status(200).json(doacaoAtualizada);
-        } else {
-            res.status(404).json({ message: 'Doação não encontrada' });
-        }
+        const doacaoAtualizada = await Doacao.findByPk(id);
+        res.status(200).json(doacaoAtualizada);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar doação: ' + error.message });
     }
@@ -77,7 +75,18 @@ async function deleteDoacao(req, res) {
 
 async function getAllDoacoes(req, res) {
     try {
-        const doacoes = await Doacao.findAll();
+        const doacoes = await Doacao.findAll({
+            include: [
+                {
+                    model: Pessoa,
+                    as: 'pessoa'
+                },
+                {
+                    model: LocalColeta,
+                    as: 'localColeta'
+                }
+            ]
+        });
         res.status(200).json(doacoes);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar doações: ' + error.message });
