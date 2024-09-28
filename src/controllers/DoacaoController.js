@@ -73,8 +73,21 @@ async function deleteDoacao(req, res) {
     }
 }
 
+const { Op } = require('sequelize');
+const moment = require('moment'); // Certifique-se de ter o moment.js instalado
+
 async function getAllDoacoes(req, res) {
     try {
+        // Definindo os períodos
+        const hoje = moment().startOf('day');
+        const inicioSemana = moment().startOf('week');
+        const inicioSemanaPassada = moment().subtract(1, 'week').startOf('week');
+        const fimSemanaPassada = moment().subtract(1, 'week').endOf('week');
+        const inicioMes = moment().startOf('month');
+        const inicioMesPassado = moment().subtract(1, 'month').startOf('month');
+        const fimMesPassado = moment().subtract(1, 'month').endOf('month');
+
+        // Buscando todas as doações
         const doacoes = await Doacao.findAll({
             include: [
                 {
@@ -87,7 +100,27 @@ async function getAllDoacoes(req, res) {
                 }
             ]
         });
-        res.status(200).json(doacoes);
+
+        // Filtrando as doações por período
+        const doacoesPorPeriodo = {
+            essaSemana: doacoes.filter(doacao =>
+                moment(doacao.data).isBetween(inicioSemana, hoje)
+            ),
+            ultimaSemana: doacoes.filter(doacao =>
+                moment(doacao.data).isBetween(inicioSemanaPassada, fimSemanaPassada)
+            ),
+            esseMes: doacoes.filter(doacao =>
+                moment(doacao.data).isBetween(inicioMes, hoje)
+            ),
+            ultimoMes: doacoes.filter(doacao =>
+                moment(doacao.data).isBetween(inicioMesPassado, fimMesPassado)
+            )
+        };
+
+        res.status(200).json({
+            doacoes,
+            doacoesPorPeriodo
+        });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar doações: ' + error.message });
     }
